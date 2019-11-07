@@ -3,6 +3,13 @@
 * 堆存储： heapstorage    堆存储分配： heapstorage allocation  堆存储管理： heap storage management
 * 栈编址： stack addressing   栈变换：stack transformation  栈存储器：stack memory  栈单元： stack cell
 
+### JVM内存的划分有五片
+* 寄存器
+* 本地方法区
+* 方法区
+* 栈内存
+* 堆内存
+
 ## 栈（Stack）内存
 栈内存首先是一片内存区域，存储的都是局部变量，凡是定义在方法中的都是局部变量（方法外的是全局变量），for循环内部定义的也是局部变量，是先加载函数才能进行局部变量的定义，所以方法先进栈，然后再定义变量，变量有自己的作用域，一旦离开作用域，变量就会被释放。栈内存的更新速度很快，因为局部变量的生命周期都很短。
 
