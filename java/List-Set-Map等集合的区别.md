@@ -4,6 +4,7 @@
 * List下有ArrayList，Vector，LinkedList
 * Map下有Hashtable，LinkedHashMap，HashMap，TreeMap
 * Collection接口下还有个Queue接口，有PriorityQueue类
+<img src="https://i.ibb.co/cybq2Nm/image.png" alt="image" border="0">
 
 ## Connection接口
 ### List 有序,可重复
