@@ -1,5 +1,5 @@
 # programming-notes
-**JAVA** / **KOTLIN** / **FLUTTER(DART)** 编程笔记
+**Java** / **Kotlin** / **Flutter(Dart)** 编程笔记
 
 ## Java
 * Java设计模式
