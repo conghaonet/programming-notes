@@ -7,7 +7,7 @@
 ## Selector类
 * Selector是SelectableChannel对象的多路复用器，可以同时监控多个SelectableChannel的IO状况，是非阻塞IO的核心。所有希望采用非阻塞方式进行通信的Channel都应该注册到Selector对象。可通过调用Selector类的静态open()方法来创建Selector实例。一个Selector实例包含3个SelectionKey集合：
   * **所有SelectionKey集合**：通过keys()方法返回，表示注册在该Selector上的所有Channel。
-  * ***被选择的SelectionKey集合*：通过selectedKeys()返回，表示所有可通过select()方法监测到、需要进行IO处理的Channel。
+  * **被选择的SelectionKey集合**：通过selectedKeys()返回，表示所有可通过select()方法监测到、需要进行IO处理的Channel。
   * **被取消的SelectionKey集合**：表示所有被取消注册关系的Channel，在下一次执行select()方法时，这些Channel对应的SelectionKey会被彻底删除。程序通常无需直接访问该集合。
 * 除了3个SelectionKey集合，Selector还提供了和select()相关的方法：
   * int select()：监控所有注册的Channel，当有Channel需要处理IO操作时，该方法返回，并将对应的SelectionKey加入被选择的SelectionKey集合中。该方法返回这些Channel的数量。
