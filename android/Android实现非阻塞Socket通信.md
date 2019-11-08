@@ -26,8 +26,8 @@
   * boolean isRegistered()：返回该Channel是否已注册在一个或多个Selector上。
   * selectionKey keyFor(Selector sel)：返回该Channel和Selector之间的注册关系，如不存在注册关系，则返回null。
 * 下面介绍两种SelectableSocketChannel，分别是对应于java.net.ServerSocket的ServerSocketChannel和对应于java.net.Socket的SocketChannel。
-  * ### ServerSocketChannel类
+  * ServerSocketChannel类
       ServerSocketChannel代表一个ServerSocket，提供了一个TCP协议的IO接口，对应于java.net.ServerSocket，支持非阻塞模式。它只支持OP_ACCEPT操作。同时，该类也提供了accept()方法，功能相当于ServerSocket的accept()方法。
-  * ### SocketChannel类
+  * SocketChannel类
       SocketChannel对应于java.net.Socket，同样提供一个TCP协议的IO接口，支持非阻塞模式。它支持OP_CONNECT、OP_READ和OP_WRITE操作。此外，该类还实现了ByteChannel接口、ScatteringByteChannel接口和GatheringByteChannel接口，可以直接通过SocketChannel来读写ByteBuffer对象。
 
