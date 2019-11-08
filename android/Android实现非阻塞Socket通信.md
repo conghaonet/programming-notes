@@ -33,7 +33,7 @@ SelectableChannel代表了可以支持非阻塞IO操作的Channel对象，可以
 
 ## 代码示例
 服务器上所有的Channel都需要向Selector注册，包括ServerSocketChannel和SocketChannel。该Selector负责监控这些Channel的IO状态，当有Channel需要IO操作时，Selector的select()方法将会返回具有IO操作的Channel的数量。并且，可通过selectedKeys()方法获取这些Channel对应的SelectionKey集合，进而获取到具有IO操作的SelectableChannel集。下面以一个实例来说明Java中NIO Socket的使用。直接上代码加注释
-* Server端（在Eclipse上）
+* Server端（Eclipse）
 ```java
 public class NIOSocketServer implements ActionListener {
 
@@ -187,5 +187,235 @@ public class NIOSocketServer implements ActionListener {
          }
       }
    }
+}
+```
+* Server端创建GUI界面辅助测试的Window类
+```java
+public class Window extends JFrame {
+
+   /**
+    * 窗口类 定义客户端和服务器端的窗口
+    */
+   private static final long serialVersionUID = 2L;
+   private String windowName;
+   private JFrame myWindow;
+   private JTextArea area;
+   private JTextField field;
+   private JButton btnSend;
+   private JButton btnSendAll;
+   private JButton btnClear;
+
+   public Window(String windowName) {
+      this.windowName = windowName;
+      myWindow = new JFrame(windowName);
+      myWindow.setLayout(new FlowLayout());
+      myWindow.setSize(new Dimension(600, 300));
+      // 不能改变窗口大小
+      myWindow.setResizable(false);
+
+      area = new JTextArea();
+      field = new JTextField();
+      btnSend = new JButton("发送");
+      btnSendAll = new JButton("群发");
+      btnClear = new JButton("clear");
+
+      // 设置field的大小
+      field.setPreferredSize(new Dimension(300, 30));
+      myWindow.add(field);
+      myWindow.add(btnSend);
+      myWindow.add(btnSendAll);
+      myWindow.add(btnClear);
+      myWindow.add(area);
+      // 改变area的大小
+      area.setPreferredSize(new Dimension(470, 210));
+      area.setBackground(Color.PINK);
+      area.setEditable(false);
+      // 设置窗口显示在电脑屏幕的某区域
+      myWindow.setLocation(400, 200);
+
+      myWindow.setVisible(true);
+      // 点击关闭按钮时触发该方法
+      closeMyWindow();
+   }
+
+   /**
+    * 方法名：closeMyWindow()
+    * 
+    * @param
+    * @return 功能：当用户点击关闭按钮时，退出并且关闭该窗口
+    */
+   private void closeMyWindow() {
+      myWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+   }
+
+   /**
+    * 方法名：getFieldText()
+    * 
+    * @param
+    * @return string 功能：获取窗口的TextField中的字符串
+    */
+   public String getFieldText() {
+      return field.getText().toString();
+   }
+
+   /**
+    * 方法名：getSendButton()
+    * 
+    * @param
+    * @return JButton 功能：获得该窗口中的按钮
+    */
+   public JButton getSendButton() {
+      return btnSend;
+   }
+
+   /**
+    * 方法名：getSendAllButton()
+    * 
+    * @param
+    * @return JButton 功能：获得该窗口中的按钮
+    */
+   public JButton getSendAllButton() {
+      return btnSendAll;
+   }
+
+   /**
+    * 方法名：getClearButton()
+    * 
+    * @param
+    * @return JButton 功能：获得该窗口中的按钮
+    */
+   public JButton getClearButton() {
+      return btnClear;
+   }
+
+   /**
+    * 方法名：getJTextArea()
+    * 
+    * @param
+    * @return JTextArea 功能：返回窗口中的JTextArea
+    */
+   public JTextArea getJTextArea() {
+      return area;
+   }
+
+   /**
+    * 方法名：getTextField()
+    * 
+    * @param
+    * @return JTextField 功能：获得窗口中的textfield
+    */
+   public JTextField getTextField() {
+      return field;
+   }
+}
+```
+* Android 客户端（Android Studio）MainActivity代码：
+```java
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "MainActivity";
+    private String ip = "192.168.1.132";
+    private TextView contentTv;
+    // 定义检测SocketChannel的Selector对象
+    private Selector mSelector;
+    // 客户端SocketChannel
+    private SocketChannel mSocketChannel;
+    // 定义处理编码、解码的字符集
+    private Charset mCharset = Charset.forName("UTF-8");
+    private String mData = "";
+    private Handler mHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message message) {
+            switch (message.what) {
+                case 0:
+                    contentTv.append("连接成功...\n");
+                    break;
+                case 1:
+                    contentTv.append("来自服务端端：" + mData + "\n");
+                    break;
+            }
+            return false;
+        }
+    });
+    private EditText mContentEt;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        contentTv = (TextView) findViewById(R.id.content_tv);
+        mContentEt = (EditText) findViewById(R.id.content_et);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_conn:
+                //Android里面网络操作不能放在UI线程，
+                // 所以开启一个线程来测试
+                new connectThread().start();
+                break;
+            case R.id.btn_send:
+                new sendMsgThread().start();
+                break;
+        }
+    }
+
+    private class sendMsgThread extends Thread {
+        @Override
+        public void run() {
+            super.run();
+            try {
+                mSocketChannel.write(mCharset.encode(mContentEt.getText().toString()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class connectThread extends Thread {
+        @Override
+        public void run() {
+            super.run();
+            try {
+                mSelector = Selector.open();
+                InetSocketAddress inetSocketAddress = new InetSocketAddress(ip, 30000);
+                // 调用open方法创建连接到指定主机的SocketChannel
+                mSocketChannel = SocketChannel.open(inetSocketAddress);
+                mHandler.sendEmptyMessage(0);
+                // 设置该SocketChannel以非阻塞方式工作
+                mSocketChannel.configureBlocking(false);
+                // 将该SocketChannle对象注册到指定的Selector
+                mSocketChannel.register(mSelector, SelectionKey.OP_READ);
+                // 读取服务端消息
+                while (mSelector != null && mSelector.select() > 0) {
+                    Set<SelectionKey> selectionKeys = mSelector.selectedKeys();
+                    Iterator<SelectionKey> iterator = selectionKeys.iterator();
+                    while (iterator.hasNext()) {
+                        SelectionKey sk = iterator.next();
+                        iterator.remove();
+                        if (sk != null && sk.isReadable()) {
+                            mSocketChannel = (SocketChannel) sk.channel();
+                            ByteBuffer buff = ByteBuffer.allocate(1024);
+                            String data = "";
+                            while (mSocketChannel.read(buff) > 0) {
+                                mSocketChannel.read(buff);
+                                buff.flip();
+                                data += mCharset.decode(buff);
+                                buff.clear();
+                            }
+                            Log.e(TAG, "run: data:" + data);
+                            mData = data;
+                            mHandler.sendEmptyMessage(1);
+                            sk.interestOps(SelectionKey.OP_READ);
+                        }
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e(TAG, "run: e:" + e.getMessage());
+            }
+        }
+    }
 }
 ```
