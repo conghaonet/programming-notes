@@ -16,7 +16,7 @@
   * Selector wakeup()：使一个还未返回的select()方法立即返回。
     
 ## SelectableChannel类
-* SelectableChannel代表了可以支持非阻塞IO操作的Channel对象，可以将其注册到Selector上，这种注册的关系由SelectionKey实例表示。Java中可以调用SelectableChannel实例的register()方法将其注册到指定的Selector上。当注册到Selector中的Channel当中有需要处理IO操作时，可以调用Selector的select()方法获取它们的数量，并通过selectedKeys()方法返回它们对应的SelectionKey集合。通过这个集合，可以获取所需要处理IO操作的SelectableChannel集。
+SelectableChannel代表了可以支持非阻塞IO操作的Channel对象，可以将其注册到Selector上，这种注册的关系由SelectionKey实例表示。Java中可以调用SelectableChannel实例的register()方法将其注册到指定的Selector上。当注册到Selector中的Channel当中有需要处理IO操作时，可以调用Selector的select()方法获取它们的数量，并通过selectedKeys()方法返回它们对应的SelectionKey集合。通过这个集合，可以获取所需要处理IO操作的SelectableChannel集。
 * SelectableChannel支持阻塞和非阻塞两种模式，默认是阻塞的，必须通过非阻塞模式才能实现非阻塞IO操作。可以通过以下两个方法来设置和返回Channel的模式：
   * SelectionKey configureBlocking(boolean block)：设置是否采用阻塞模式
   * boolean isBlocking()：返回该Channel是否阻塞模式。
