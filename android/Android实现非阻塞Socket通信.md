@@ -18,13 +18,13 @@
 ## SelectableChannel类
 SelectableChannel代表了可以支持非阻塞IO操作的Channel对象，可以将其注册到Selector上，这种注册的关系由SelectionKey实例表示。Java中可以调用SelectableChannel实例的register()方法将其注册到指定的Selector上。当注册到Selector中的Channel当中有需要处理IO操作时，可以调用Selector的select()方法获取它们的数量，并通过selectedKeys()方法返回它们对应的SelectionKey集合。通过这个集合，可以获取所需要处理IO操作的SelectableChannel集。
 * SelectableChannel支持阻塞和非阻塞两种模式，默认是阻塞的，必须通过非阻塞模式才能实现非阻塞IO操作。可以通过以下两个方法来设置和返回Channel的模式：
-  * SelectionKey configureBlocking(boolean block)：设置是否采用阻塞模式
-  * boolean isBlocking()：返回该Channel是否阻塞模式。
+  * **SelectionKey configureBlocking(boolean block)**：设置是否采用阻塞模式
+  * **boolean isBlocking()**：返回该Channel是否阻塞模式。
 * 不同的SelectableChannel所支持的操作不一样。在SelectableChannel中提供了如下方法来返回不同SelectableSocketChannel所支持的操作：
-  * int validOps()：返回一个bit mask，表示这个Channel上支持的IO操作。
+  * **int validOps()**：返回一个bit mask，表示这个Channel上支持的IO操作。
     此外，SelectableChannel还提供了如下方法获取它的注册状态：
-  * boolean isRegistered()：返回该Channel是否已注册在一个或多个Selector上。
-  * selectionKey keyFor(Selector sel)：返回该Channel和Selector之间的注册关系，如不存在注册关系，则返回null。
+  * **boolean isRegistered()**：返回该Channel是否已注册在一个或多个Selector上。
+  * **selectionKey keyFor(Selector sel)**：返回该Channel和Selector之间的注册关系，如不存在注册关系，则返回null。
 * 下面介绍两种SelectableSocketChannel，分别是对应于java.net.ServerSocket的ServerSocketChannel和对应于java.net.Socket的SocketChannel。
   * **ServerSocketChannel类**    
       ServerSocketChannel代表一个ServerSocket，提供了一个TCP协议的IO接口，对应于java.net.ServerSocket，支持非阻塞模式。它只支持OP_ACCEPT操作。同时，该类也提供了accept()方法，功能相当于ServerSocket的accept()方法。
