@@ -10,6 +10,7 @@
   * 行为型模式，共十一种：策略模式、模板方法模式、[观察者模式](/java/设计模式-观察者模式.md)、迭代子模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。
 * [Stack栈和Heap堆的区别](/java/Stack栈和Heap堆的区别.md)
 * [List-Set-Map等集合的区别](/java/List-Set-Map等集合的区别.md)
+* [Java中byte-boolean-short-char-int-float-long-double各占多少字节](/java/Java中byte-boolean-short-char-int-float-long-double各占多少字节.md)
 
 ## Flutter
 * [书籍：FlutterInAction —— 闲鱼最佳实践.pdf](/flutter/FlutterInAction.pdf)
