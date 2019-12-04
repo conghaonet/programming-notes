@@ -6,7 +6,7 @@
   * Skia已然是Android官方的图像渲染引擎了，因此Flutter Android SDK无需内嵌Skia引擎就可以获得天然的Skia支持；而对于iOS平台来说，由于Skia是跨平台的，因此它作为Flutter 的iOS渲染引擎被嵌入到了Flutter iOS SDK中，代替了iOS闭源的Core Graphics/Core Animation/Core Text，这也正是Flutter iOS SDK打包的APP包体积比Android要大一些的原因。  
   * 底层渲染能力统一了，上层开发接口和功能体验也就随即统一了，开发者再也不用担心平台相关的渲染特性了。也就是说，Skia保证了同一台代码调用在Android和iOS平台上的渲染效果是完全一致的。
 * 为什么是Dart？  
-Dart因为同时支持JIT和AOT，所以既开发效率高，又运行速度好、执行性能高。在开发期选择JIT，开发调试异常方便（热重载）；在发布期使用AOT，本地代码的执行性能更加高效。
+Dart因为同时支持JIT(JUST-IN-TIME)和AOT(Ahead-Of-Time)，所以既开发效率高，又运行速度好、执行性能高。在开发期选择JIT，开发调试异常方便（热重载）；在发布期使用AOT，本地代码的执行性能更加高效。
 
 ## Flutter原理
 * Flutter的架构图：
