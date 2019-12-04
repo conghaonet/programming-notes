@@ -8,6 +8,13 @@
 * 为什么是Dart？  
 Dart因为同时支持JIT(JUST-IN-TIME)和AOT(Ahead-Of-Time)，所以既开发效率高，又运行速度好、执行性能高。在开发期选择JIT，开发调试异常方便（热重载）；在发布期使用AOT，本地代码的执行性能更加高效。
 
+## Flutter JIT和AOT编译
+编译模式大体可以分为两种，AOT编译与JIT编译。JIT全称是Just In Time，代码可以在程序执行时期编译，因为要在程序执行前进行分析、编译，JIT编译可能会导致程序执行时间较慢；而AOT编译，全称Ahead Of Time，是在程序运行前就已经编译，从开发者修改代码、编译较慢，但运行时不需要进行分析、编译，因此执行速度更快。
+
+Flutter使用了独特的编译模式，开发阶段下，使用Kernel Snapshot模式(对应JIT编译)，将dart代码生成标记化的源代码，运行时编译，解释执行；release阶段，ios使用AOT编译，编译器将dart代码生成汇编代码，最终生成app.framwork，android使用了Core JIT编译，dart转化为二进制模式，在VM启动前载入。
+
+因此，基于开发阶段的Kernel Snapshot编译模式下，我们可以得知Hot Reload扫描项目文件，将有改动的dart文件转化为标记化源代码kernel files，发送到正在运行的DartVM，DartVM替换资源，然后通知Flutter Framework重建、重新布局、重新绘制WidgetsTree，即可看到改动效果。
+
 ## Flutter原理
 * Flutter的架构图：
 <image src="https://ask.qcloudimg.com/http-save/yehe-4984806/3hj8g8xrsj.jpeg?imageView2/2/w/1620">
