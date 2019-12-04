@@ -15,6 +15,7 @@
 ## Flutter
 * [书籍：FlutterInAction —— 闲鱼最佳实践.pdf](/flutter/FlutterInAction.pdf)
 * [学习笔记一 Widgets](/flutter/widgets.md)
+* [Flutter区别于其他技术的关键](/flutter/Flutter区别于其他技术的关键.md)
 ## Android
 * [Android进程间通信的几种方式](/android/Android进程间通信的几种方式.md)
 * [Android实现非阻塞Socket通信](/android/Android实现非阻塞Socket通信.md)
