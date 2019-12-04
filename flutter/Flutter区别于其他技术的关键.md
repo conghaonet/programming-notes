@@ -39,5 +39,12 @@ Skia和Dart是构建Flutter底层的关键技术，也是Flutter区别于其他�
 
 跨平台方案的局限就是真正的多端一致性很难完全保证。RN这种就不用说了，很多组件的表现行为两端都不一样。就连Flutter也只能做到渲染层以上的多端一致性，还有一些原生的东西（比如Push、地图、定位、蓝牙、WebView）绕不开，需要通过在原生上写插件来搞定。不过话说回来，如果真的绕开了，那Flutter就变成操作系统了，打出来的包没个几百兆估计是搞不定的。
 
-最后来一张Flutter的指知识体系导图吧  
+Flutter指知识体系导图：    
 <image src="https://ask.qcloudimg.com/http-save/yehe-4984806/iyi15cv1ue.jpeg?imageView2/2/w/1620">
+
+FLutter常用对象的继承关系：  
+<image src="https://upload-images.jianshu.io/upload_images/4185621-fe1e969c84d57481.png">
+
+Widget的生命周期：  
+<image src="https://upload-images.jianshu.io/upload_images/4185621-77330034d352258b.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp">
+
